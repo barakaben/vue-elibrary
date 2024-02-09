@@ -7,8 +7,8 @@
                 <img :src="ebook.cover_image" />
             </div>
             <div class="booklinks">
-                <button><a href="#book.pdf">Download Pdf</a></button>
-                <button><a href="#books/book.id">Details</a></button>
+                <button><a :href="ebook.pdf"  target="blank">Download Pdf</a></button>
+                <button><router-link v-bind:to="'/books/'+ ebook.id">Details</router-link></button>
             </div>
         </div>
     </div>
@@ -17,7 +17,7 @@
 
 <script>
 export default {
-    name:'BooksList',
+    name:"BookList",
     data() {
         return {
             books:[],
@@ -34,7 +34,7 @@ export default {
             fetch(import.meta.env.VITE_API_URL+`?page=+${pageNo}`)
             .then(response=>response.json())
             .then(json=>this.books=json.results);
-        },
+        },        
     }
 
 }
