@@ -5,7 +5,7 @@ import  BookDetail  from "./components/BookDetail.vue";
 const routes=[
     {
         path:"/books",
-        name:"books",
+        name:"bookslist",
         component:BookList
     },
     {
