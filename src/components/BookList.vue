@@ -12,16 +12,18 @@
             </div>
         </div>
     </div>
-    <!--<pagination></pagination>-->
+    <Paginator class="mt-5" rows=10 @page="onPaginate" :totalRecords="totalBooks"  />
 </template>
 
-<script>
+<script>   
 export default {
     name:"BookList",
     data() {
         return {
             books:[],
-            totalBooks:0
+            totalBooks:0,
+            offset:0,
+            perPage:5
         }
     },
     
@@ -33,9 +35,18 @@ export default {
         showPage( pageNo = 1 ) {
             fetch(import.meta.env.VITE_API_URL+`?page=+${pageNo}`)
             .then(response=>response.json())
-            .then(json=>this.books=json.results);
+            .then(json=> {
+                this.totalBooks=json.count
+                this.perPage=5
+                this.books=json.results
+            });
+        },
+        onPaginate(e){
+            if((e.page)>0){
+                this.showPage(e.page)
+            }        
         },        
     }
-
+    
 }
 </script>
